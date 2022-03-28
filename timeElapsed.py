@@ -15,8 +15,8 @@ endMin = beginMin + minAddTime
 if endMin >= 60 :
     endHours += endMin // 60
     endMin = endMin % 60
-    if endMin <= 9 :
-        endMin = "0" + str(endMin)
+    if endMin == 0 :
+        endMin = "00"
 
 #if end time hours exceeds 24 hrs, then take the remainder as end time hours 
 if endHours >= 24 :

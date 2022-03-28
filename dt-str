@@ -1,0 +1,4 @@
+myval = "Hello"
+print(myval)
+print(type(myval))
+print(myval + " is of datatype " + str(type(myval)))
