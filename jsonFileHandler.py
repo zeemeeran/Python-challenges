@@ -1,32 +1,27 @@
+"""
+Your module description
+"""
+
 import json
 
-#function to read from json file
 
-def readJsonFile(filename) :
-    try:
-        with open(filename) as json_file :
+
+def readJsonFile(filename):
+    data = ""
+    
+    try :
+        with open(filename, 'r') as json_file :
+        #json_file = open(filename)
             data = json.load(json_file)
-    except IOError:
-        print("Error reading JSON file")
+    except IOError :
+        print("Cannot open file")
+        
+    #print(data)
     return data
-
-
-# function to add new data record  to jason file
-
-def writeJsonFile(newdata, filename) :
-    # load data from json file   
-    with open(filename) as json_f:
-        data = json.load(json_f)
-
-    # open json file in write mode         
-    with open(filename, "w") as json_file:
-        data.append(newdata)  # appending data list read from json file with new record
-        print(json.dump(data, json_file, indent=1))  # writing data list of all records back to json file
-    return True
-
-
-
-
-
+        
+        
+        
+# readJsonFile(/home/ec2-user/environment/insulin.json)
+#readJsonFile("insulin.json")
 
 
