@@ -1,0 +1,47 @@
+{
+   "coord":{
+      "lon":-74.006,
+      "lat":40.7143
+   },
+   "weather":[
+      {
+         "id":502,
+         "main":"Rain",
+         "description":"heavy intensity rain",
+         "icon":"10n"
+      }
+   ],
+   "base":"stations",
+   "main":{
+      "temp":43.92,
+      "feels_like":36.25,
+      "temp_min":38.52,
+      "temp_max":46.36,
+      "pressure":1016,
+      "humidity":75
+   },
+   "visibility":10000,
+   "wind":{
+      "speed":17.27,
+      "deg":40,
+      "gust":24.16
+   },
+   "rain":{
+      "1h":5.01
+   },
+   "clouds":{
+      "all":100
+   },
+   "dt":1650334147,
+   "sys":{
+      "type":2,
+      "id":2039034,
+      "country":"US",
+      "sunrise":1650276751,
+      "sunset":1650325065
+   },
+   "timezone":-14400,
+   "id":5128581,
+   "name":"New York",
+   "cod":200
+}
