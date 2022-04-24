@@ -12,13 +12,13 @@ __email__ = "dev.malik.ammar@gmail.com"
 __status__ = "Production"
 
 import os, BlockDusterColors
-from re import L
+from re import L, M
 import customersDataManMod
-import Library
+import library
 
 def MainMenu() :
     # Clear the terminal before starting the program so everything is clear
-    Library.clearTerminal()
+    #library.clearTerminal()
 
     print('''       
           )
@@ -46,11 +46,11 @@ def MainMenu() :
     ''')
 
     print(''' 
-    ###########################################################################
-    #           CUSTOMER MENU - Choose one of the options from below          #
-    ---------------------------------------------------------------------------
-    #    0-Search | 1-Add New | 2-Edit A Customer | 3-Delete | 4-Main Menu    #         
-    ###########################################################################
+    ######################################################################
+    #           CUSTOMER MENU - Choose one of the options from below     #
+    ----------------------------------------------------------------------
+    #    0-Search | 1-Add New | 2-Edit A Customer | 3-Delete | 4-Exit    #         
+    ######################################################################
     ''')
     selection = 0
     while selection != "4" :
@@ -58,21 +58,24 @@ def MainMenu() :
         if selection == '0' :
             customersDataManMod.searchCustomers()
             input()
-            return 0
+            MainMenu()
         if selection == '1' :
             customersDataManMod.addCustomers()
             input()
-            return 0
+            MainMenu()
         elif selection == '2' :
             customersDataManMod.editCustomers()
             input()
-            return 0
+            MainMenu()
         elif selection == '3' :
             customersDataManMod.delCustomers()
             input()
-            return 0
+            MainMenu()
         elif selection == '4' :
-            Library.clearTerminal()
-            return 1
+            library.clearTerminal()
+            exit
         else :
             print("\nWarning - Invalid option\n")            
+
+
+MainMenu()

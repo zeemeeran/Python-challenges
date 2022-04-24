@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h5>Edit cutomer details ....</h5>
+    <br/>
+    
+<form method="post">
+    <p>
+        <label>Enter customer name whose details need to updated : </label>
+        <input type="text" name="name"
+               placeholder="Edit name">
+        </input>
+    </p>
+
+    <p>
+        <label>New Name : </label>
+        <input type="text" name="newname"
+               placeholder="New Name">
+        </input>
+    </p>
+
+    <p>
+        <label>New Address : </label>
+        <input type="text" name="address"
+               placeholder="address">
+        </input>
+    </p>
+
+    <p>
+        <label>New City</label>
+        <input type="text" name="city"
+               placeholder="city">
+        </input>
+    </p>
+
+    <p>
+        <label>New State</label>
+        <input type="text" name="state"
+               placeholder="state">
+        </input>
+    </p>
+    <p>
+        <label>New Phone</label>
+        <input type="text" name="phone"
+               placeholder="phone">
+        </input>
+    </p>
+    <p>
+    
+    <p>
+        <button type="submit">Edit Customer</button> 
+    </p>
+</form>
+
+{% if name %}
+    Updated details of {{ name }}!!
+{% endif %}
+{% endblock %}
+
+

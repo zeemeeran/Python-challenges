@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block styling %}
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+{% endblock %}
+
+{% block content %}
+
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Phone</th>
+      </tr>
+  
+    {% for c in cust %}
+        <tr>
+            <td>{{ c[0] }}</td>
+            <td>{{ c[1] }}</td>
+            <td>{{ c[2] }}</td>
+            <td>{{ c[3] }}</td>
+            <td>{{ c[4] }}</td>
+            <td>{{ c[5] }}</td>
+        </tr>
+
+{% endfor %}
+</table>
+
+{% endblock %}
+<!-- <div>{{ c[0] }} --{{ c[1] }}, {{ c[2] }}, {{ c[3] }}, {{ c[4] }} -- {{ c[5] }}</div> -->
+

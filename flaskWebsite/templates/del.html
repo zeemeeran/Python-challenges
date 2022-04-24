@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+
+<form method="post">
+<p>
+    <label>Enter customer name to be deleted : </label>
+    <input type="text" name="name"
+           placeholder="delete customer">
+    </input>
+</p>
+<p>
+    <button type="submit">Delete</button>
+</p>
+</form>
+
+{% if delName %}
+    {{ delName }} has been deleted from the database!!
+{% endif %}
+
+{% endblock %}

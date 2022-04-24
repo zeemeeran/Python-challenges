@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %} Add new Customer!{% endblock %}
+
+
+{% block content %}
+    <h3>Enter details of new customer...</h3>
+    <br/>
+    
+    <form method="post">
+        <p>
+            <label>Name : </label>
+            <input type="text" name="name"
+                placeholder="Name">
+            </input>
+        </p>
+
+        <p>
+            <label>Address : </label>
+            <input type="text" name="address"
+                placeholder="address">
+            </input>
+        </p>
+
+        <p>
+            <label>City</label>
+            <input type="text" name="city"
+                placeholder="city">
+            </input>
+        </p>
+
+        <p>
+            <label>State</label>
+            <input type="text" name="state"
+                placeholder="state">
+            </input>
+        </p>
+        <p>
+            <label>Phone</label>
+            <input type="text" name="phone"
+                placeholder="phone">
+            </input>
+        </p>
+        <p>
+        
+        <p>
+            <button type="submit">Add Customer</button>
+        </p>
+    </form>
+
+    {% if name %}
+        {{ name }} has been added to the database!!
+    {% endif %}
+
+{% endblock %}

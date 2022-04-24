@@ -89,7 +89,7 @@
  },
  {
   "customerID": "16",
-  "customerName": "Zee",
+  "customerName": "Zeeee",
   "customerAddress": "123 park st",
   "customerCity": "Hightstown",
   "customerState": "NJ",
@@ -174,5 +174,13 @@
   "customerCity": "Miami",
   "customerState": "FL",
   "customerPhone": "121112222"
+ },
+ {
+  "customerID": "30",
+  "customerName": "Shafan",
+  "customerAddress": "121",
+  "customerCity": "New Haven",
+  "customerState": "CT",
+  "customerPhone": "1212221111"
  }
 ]

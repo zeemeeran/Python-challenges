@@ -1,4 +1,5 @@
 import json
+from re import S
 
 #function to read from json file
 
@@ -11,16 +12,26 @@ def readJsonFile(filename) :
         print("Error reading JSON file")
 
     
-def searchJsonFile(searchCust, filename) :
-    import CustomerIDX
-    recNumber = -1
-    customerID = 0
-    
-    objCustomer = CustomerIDX.Customer(filename)
-    recNumber, customerID = objCustomer.search(searchCust)
+#def searchJsonFile(searchCust, filename) :
+#    import CustomerIDX
+#    recNumber = -1
+#    customerID = 0   
+#    objCustomer = CustomerIDX.Customer(filename)
+#  recNumber, customerID = objCustomer.search(searchCust)
 
+#    data = readJsonFile(filename)
+#    return int(recNumber), data[int(recNumber)]
+
+def searchJsonFile(searchCust, filename) :
+        
     data = readJsonFile(filename)
-    return int(recNumber), data[int(recNumber)]
+    lendata = len(data)
+    for i in range(0, lendata):
+        if data[i]['customerName'] == searchCust:
+            print(data[i])
+            return data[i]
+        
+
     
 
 

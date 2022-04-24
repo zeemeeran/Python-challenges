@@ -1,3 +1,4 @@
+from calendar import c
 import json
 import jsonFileHandler
 
@@ -36,16 +37,21 @@ def searchCustomers() :
     st = 1
 
     searchCust = input("Enter search customer name: ")
-    st, custDetails = jsonFileHandler.searchJsonFile(searchCust, "customers.json")
+    #st, custDetails = jsonFileHandler.searchJsonFile(searchCust, "customers.json")
+
+    custDetails = jsonFileHandler.searchJsonFile(searchCust, "customers.json")
+    print(custDetails)
     
-    if st >= 0:
+    if custDetails == None :
+        print(f"\n{searchCust} not found!!")
+        
+    else :
         print("\nCUSTOMER found :)")
         print(f"Customer ID : {custDetails['customerID']}", end = " -->")
         print(f" {custDetails['customerName']}", end = ", ")
         print(f"{custDetails['customerAddress']}, {custDetails['customerCity']}, {custDetails['customerState']}", end = " -->")
         print(f" {custDetails['customerPhone']}\n")
-    else :
-        print(f"\n{searchCust} not found!!")
+        
 
 
 

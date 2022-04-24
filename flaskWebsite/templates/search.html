@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+
+<form method="post">
+<p>
+    <label>Enter the name of customer : </label>
+    <input type="text" name="name"
+           placeholder=" {{searchName}} ">
+    </input>
+</p>
+<p>
+    <button type="submit">Search</button>
+</p>
+</form>
+
+{{ searchName}}
+{{ searchrec }}
+
+<!--{% if searchrec %}-->
+{% for s in searchrec %}
+<div>{{ s[0] }} --> {{ s[1] }}, </div>
+{% endfor %}
+<!--{% endif %} -->
+
+{% endblock %}
