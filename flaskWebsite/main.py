@@ -1,7 +1,4 @@
 
-#from operator import ge
-#import re
-import re
 from flask import Flask, redirect, url_for, render_template, request
 from  flask_sqlalchemy import SQLAlchemy
 import psycopg2
@@ -43,6 +40,7 @@ def about():
 def admin():
     return redirect(url_for("index"))
 
+
 @app.route("/display", methods= ['GET'])
 def display():
     conn = get_db_conn()
@@ -58,31 +56,29 @@ def display():
 
 @app.route("/search", methods= ['GET', 'POST'])
 def search():
-    conn = get_db_conn()
-    # Open a cursor to perform database operations
-    cur = conn.cursor()
-    searchName = "search name"
-
+    
     if request.method == 'POST':
         searchName = request.form['name']
-                        
-        sql = 'SELECT * FROM customers WHERE name = %s'
-        #return render_template("edit.html", sql=sql)
-        
-        #cur.execute(sql,[searchName])
 
-        # cur.execute(sql, [searchName,])
-        cur.execute('SELECT * FROM customers WHERE name = %s', [searchName,])
+        if searchName:                        
+            conn = get_db_conn()
+            # Open a cursor to perform database operations
+            cur = conn.cursor()
+            
+            cur.execute('SELECT * FROM customers WHERE name = %s', [searchName,])
 
-        searchrec = cur.fetchall()
-        conn.commit()
-        cur.close()
-        conn.close()
-        #return render_template("edit.html", =sql)
-        return render_template("search.html", searchName = searchName, seachrec = searchrec )
+            searchrec = cur.fetchall()
+            conn.commit()
+            cur.close()
+            conn.close()
+            if searchrec :
+                return render_template("search.html", searchName = searchName, searchrec = searchrec )
+            else :
+                return render_template("search.html", searchName = searchName, notfoundmsg = 1 )
+        else :
+            return render_template("search.html", nonamemsg = 1)
         
-    
-    return render_template("search.html", searchName = searchName)
+    return render_template("search.html", searchName = "Search Name")
 
 
 
@@ -120,37 +116,62 @@ def edit():
         state = request.form['state']
         phone = request.form['phone']
 
+        notfoundmsg = 1
+
         conn = get_db_conn()
         cur = conn.cursor()
-        cur.execute('UPDATE customers SET name = %s WHERE name = %s ', [name, newname])
+        cur.execute('select * from customers where name = %s ', (name, ))
+        cust = cur.fetchall()
         
+        if len(cust) != 0 :
+            notfoundmsg = 0
+            if newname != "":
+                cur.execute('UPDATE customers SET name = %s WHERE name = %s ', (newname, name))
+
+            if address != "":
+                cur.execute('UPDATE customers SET address = %s WHERE name = %s ', (address, name))
+            
+            if city != "":
+                cur.execute('UPDATE customers SET city = %s WHERE name = %s ', (city, name))
+
+            if state != "":
+                cur.execute('UPDATE customers SET state = %s WHERE name = %s ', (state, name))
+
+            if phone != "":
+                cur.execute('UPDATE customers SET phone = %s WHERE name = %s ', (phone, name))
+   
+            
         conn.commit()
         cur.close()
         conn.close()
-        return render_template('edit.html', name = name)
+        return render_template('edit.html', notfoundmsg = notfoundmsg, name = name)
 
-    return render_template("edit.html")
+    return render_template("edit.html", name = "Edit Customer Name")
 
 
 @app.route("/delete", methods = ['GET', 'POST'] )
 def delete():
-    conn = get_db_conn()
-    # Open a cursor to perform database operations
-    cur = conn.cursor()
-
     if request.method == 'POST':
+    
         delName = request.form['name']
-                        
-        sql = "DELETE FROM CUSTOMERS WHERE NAME = %s"
-               
-        cur.execute(sql, [delName,])
-        #searchrec = cur.fetchall()
+    
+        conn = get_db_conn()
+        cur = conn.cursor()
+        cur.execute('select * from customers where name = %s ', (delName, ))
+        cust = cur.fetchall()
+        msgnotfound = 1        
+
+        if len(cust) !=  0 :
+            msgnotfound = 0
+            sql = "DELETE FROM CUSTOMERS WHERE NAME = %s"
+            cur.execute(sql, [delName,])
+        
         conn.commit()
         cur.close()
         conn.close()
-        return render_template("del.html", delName = delName )
+        return render_template("del.html", msgnotfound = msgnotfound, delName = delName )
           
-    return render_template("del.html")
+    return render_template("del.html", delName = "delete customer")
 
 
 if __name__ == '__main__' :

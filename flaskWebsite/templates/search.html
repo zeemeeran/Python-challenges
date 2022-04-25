@@ -3,25 +3,53 @@
 {% block content %}
 <br>
 
-<form method="post">
+<form method="post" style="margin: 10px; padding: 20px 50px 50px 30px;">
 <p>
-    <label>Enter the name of customer : </label>
+    <label class="MarLft10" >Enter the name of customer : </label>
     <input type="text" name="name"
            placeholder=" {{searchName}} ">
     </input>
+
+    <button type="submit" style="margin-left: 30px;">Search</button>
 </p>
-<p>
-    <button type="submit">Search</button>
-</p>
+
+{% if notfoundmsg == 1 %}
+    <label class="MarLft10"> {{ searchName }} not found in customer database!!</label>
+{% endif %}
+
+{% if nonamemsg == 1 %}
+    <label class="MarLft10"> Please enter a name to search!!</label>
+{% endif %}
+
 </form>
 
-{{ searchName}}
-{{ searchrec }}
+{% if searchrec %}
 
-<!--{% if searchrec %}-->
-{% for s in searchrec %}
-<div>{{ s[0] }} --> {{ s[1] }}, </div>
-{% endfor %}
-<!--{% endif %} -->
+    <table class = 'tbldisplay'>
+        <tr class = 'tblhdr' >
+            <th>Id</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Phone</th>
+        </tr>
+
+        {% for s in searchrec %}
+            <tr>
+                <td>{{ s[0] }}</td>
+                <td>{{ s[1] }}</td>
+                <td>{{ s[2] }}</td>
+                <td>{{ s[3] }}</td>
+                <td>{{ s[4] }}</td>
+                <td>{{ s[5] }}</td>
+            </tr>
+    
+        {% endfor %}
+    </table>
+   
+{% endif %} 
+
+
 
 {% endblock %}
