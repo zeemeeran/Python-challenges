@@ -91,18 +91,19 @@ def add():
         state = request.form['state']
         phone = request.form['phone']
 
-        conn = get_db_conn()
-        cur = conn.cursor()
-        cur.execute('INSERT INTO customers (name, address, city, state, phone)'
-                    'VALUES (%s, %s, %s, %s, %s)',
-                    (name, address, city, state, phone))
-        
-        conn.commit()
-        cur.close()
-        conn.close()
-        #return redirect(url_for('index'))
-        return render_template("add.html", name = name)
-
+        if name != "" :
+            conn = get_db_conn()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO customers (name, address, city, state, phone)'
+                        'VALUES (%s, %s, %s, %s, %s)',
+                        (name, address, city, state, phone))
+            
+            conn.commit()
+            cur.close()
+            conn.close()
+            return render_template("add.html", name = name)
+        else :
+            return render_template("add.html", nonamemsg = 1 )
     return render_template("add.html")
 
 
@@ -110,41 +111,46 @@ def add():
 def edit():
     if request.method == 'POST':
         name = request.form['name']
-        newname = request.form['newname']
+        newname = request.form['newname'] 
         address = request.form['address']
         city = request.form['city']
         state = request.form['state']
         phone = request.form['phone']
 
-        notfoundmsg = 1
-
-        conn = get_db_conn()
-        cur = conn.cursor()
-        cur.execute('select * from customers where name = %s ', (name, ))
-        cust = cur.fetchall()
-        
-        if len(cust) != 0 :
-            notfoundmsg = 0
-            if newname != "":
-                cur.execute('UPDATE customers SET name = %s WHERE name = %s ', (newname, name))
-
-            if address != "":
-                cur.execute('UPDATE customers SET address = %s WHERE name = %s ', (address, name))
+        if name != "" :
             
-            if city != "":
-                cur.execute('UPDATE customers SET city = %s WHERE name = %s ', (city, name))
+            if newname == "" and address == "" and city == "" and state == "" and phone == "" :
+                return render_template("edit.html", noeditmsg = 1, name = name)
+            else :
+                notfoundmsg = 1
+                conn = get_db_conn()
+                cur = conn.cursor()
+                cur.execute('select * from customers where name = %s ', (name, ))
+                cust = cur.fetchall()
+                
+                if len(cust) != 0 :
+                    notfoundmsg = 0
+                    if newname != "":
+                        cur.execute('UPDATE customers SET name = %s WHERE name = %s ', (newname, name))
 
-            if state != "":
-                cur.execute('UPDATE customers SET state = %s WHERE name = %s ', (state, name))
+                    if address != "":
+                        cur.execute('UPDATE customers SET address = %s WHERE name = %s ', (address, name))
+                    
+                    if city != "":
+                        cur.execute('UPDATE customers SET city = %s WHERE name = %s ', (city, name))
 
-            if phone != "":
-                cur.execute('UPDATE customers SET phone = %s WHERE name = %s ', (phone, name))
-   
-            
-        conn.commit()
-        cur.close()
-        conn.close()
-        return render_template('edit.html', notfoundmsg = notfoundmsg, name = name)
+                    if state != "":
+                        cur.execute('UPDATE customers SET state = %s WHERE name = %s ', (state, name))
+
+                    if phone != "":
+                        cur.execute('UPDATE customers SET phone = %s WHERE name = %s ', (phone, name))
+                    
+                conn.commit()
+                cur.close()
+                conn.close()
+                return render_template('edit.html', notfoundmsg = notfoundmsg, name = name)
+        else :
+            return render_template("edit.html", name = "Edit Customer Name", nonamemsg = 1)
 
     return render_template("edit.html", name = "Edit Customer Name")
 
@@ -152,25 +158,27 @@ def edit():
 @app.route("/delete", methods = ['GET', 'POST'] )
 def delete():
     if request.method == 'POST':
-    
         delName = request.form['name']
-    
-        conn = get_db_conn()
-        cur = conn.cursor()
-        cur.execute('select * from customers where name = %s ', (delName, ))
-        cust = cur.fetchall()
-        msgnotfound = 1        
-
-        if len(cust) !=  0 :
-            msgnotfound = 0
-            sql = "DELETE FROM CUSTOMERS WHERE NAME = %s"
-            cur.execute(sql, [delName,])
         
-        conn.commit()
-        cur.close()
-        conn.close()
-        return render_template("del.html", msgnotfound = msgnotfound, delName = delName )
-          
+        if delName :
+            conn = get_db_conn()
+            cur = conn.cursor()
+            cur.execute('select * from customers where name = %s ', (delName, ))
+            cust = cur.fetchall()
+            notfoundmsg = 1        
+
+            if len(cust) !=  0 :
+                notfoundmsg = 0
+                sql = "DELETE FROM CUSTOMERS WHERE NAME = %s"
+                cur.execute(sql, [delName,])
+            
+            conn.commit()
+            cur.close()
+            conn.close()
+            return render_template("del.html", notfoundmsg = notfoundmsg, delName = delName )
+        else :
+            return render_template("del.html", nonamemsg = 1)
+                    
     return render_template("del.html", delName = "delete customer")
 
 

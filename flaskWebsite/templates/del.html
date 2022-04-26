@@ -6,24 +6,28 @@
 
 {% block content %}
     <br>
-
     <form method="post">
-    <p>
-        <label>Enter customer name to be deleted : </label>
-        <input type="text" name="name"
-            placeholder="{{ delName }}">
-        </input>
+        <p>
+            <label>Enter customer name to be deleted : </label>
+            <input type="text" name="name"
+                placeholder="{{ delName }}">
+            </input>
 
-        <button type="submit" style="margin-left: 30px;">Delete Customer</button>
-    </p>
+            <button type="submit" style="margin-left: 30px;">Delete Customer</button>
+        </p>
+
+        {% if notfoundmsg == 0 %}
+            <label class="MarLft10"> {{ delName }} has been deleted from the customer database!!</label>
+        {% endif %}
+        
+        {% if notfoundmsg == 1 %}
+            <label class="MarLft10">{{ delName }} not found in customer database!!</label>
+        {% endif %}
+
+        {% if nonamemsg == 1 %}
+            <label class="MarLft10">Please enter a name to delete!!</label>
+        {% endif %}
+
     </form>
-
-    {% if msgnotfound == 0 %}
-        {{ delName }} has been deleted from the customer database!!
-    {% endif %}
-
-    {% if msgnotfound == 1 %}
-        {{ delName }} not found in customer database!!
-    {% endif %}
 
 {% endblock %}

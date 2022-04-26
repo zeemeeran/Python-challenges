@@ -15,34 +15,34 @@
         </p>
 
         <p>
-            <label>New Name </label>
+            <label style ="margin-right: 30px;">New Name </label>
             <input type="text" name="newname"
                 placeholder="New Name (optional)">
             </input>
         </p>
 
         <p>
-            <label>New Address </label>
+            <label style ="margin-right: 16px;">New Address </label>
             <input type="text" name="address"
                 placeholder="New Addreess (optional)">
             </input>
         </p>
 
         <p>
-            <label>New City</label>
+            <label style ="margin-right: 45px;">New City</label>
             <input type="text" name="city"
                 placeholder="city (optional)">
             </input>
         </p>
 
         <p>
-            <label>New State</label>
+            <label style ="margin-right: 36px;">New State</label>
             <input type="text" name="state"
                 placeholder="state (optional)">
             </input>
         </p>
         <p>
-            <label>New Phone</label>
+            <label style ="margin-right: 27px;">New Phone</label>
             <input type="text" name="phone"
                 placeholder="phone (optional)">
             </input>
@@ -52,15 +52,25 @@
         <p>
             <button type="submit">Edit Customer</button> 
         </p>
+
+        {% if notfoundmsg == 0 %}
+            Updated details of {{ name }}!!
+        {% endif %}
+
+        {% if notfoundmsg == 1 %}
+            {{ name }} not found in customers database!!
+        {% endif %}
+
+        {% if nonamemsg == 1 %}
+            <label>Enter details please!</label>
+        {% endif %}
+
+        {% if noeditmsg == 1 %}
+            <label>Enter new details for {{ name }} please!</label>
+        {% endif %}
+
+
     </form>
-
-    {% if notfoundmsg == 0 %}
-        Updated details of {{ name }}!!
-    {% endif %}
-
-    {% if notfoundmsg == 1 %}
-        {{ name }} not found in customers database!!
-    {% endif %}
 
 {% endblock %}
 

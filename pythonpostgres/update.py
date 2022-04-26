@@ -13,7 +13,7 @@ cur.execute('UPDATE customers SET name = %s WHERE name = %s',(newname, name))
 cur.execute('Select * from customers')
 cust = cur.fetchall()
 print(cust)
-
+print(len(cust))
 conn.commit()
 cur.close()
 conn.close()
