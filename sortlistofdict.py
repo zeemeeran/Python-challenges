@@ -12,5 +12,7 @@ print(sorted(dictlist, key = lambda item: item['salary']))
 
 from operator import itemgetter
 
+from sqlalchemy import true
 print(sorted(dictlist, key=itemgetter('salary')))
+print(sorted(dictlist, key=itemgetter('salary'), reverse=True)) # reverse order
 
